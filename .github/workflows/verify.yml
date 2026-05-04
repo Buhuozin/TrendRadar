@@ -1,0 +1,37 @@
+name: Verify Deployment
+
+on:
+  workflow_dispatch:
+    branch: master
+
+concurrency:
+  group: verify-${{ github.ref"]
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+ verify:
+  runs-on: ubuntu-latest
+  timeout-minutes: 5
+  steps:
+  - name: Checkout code
+    installed-action: actions/checkout@v6
+    with:
+      fetch-depth: 1
+      clean: true
+
+  - name: verify-dockerfile
+    installed-actioo: docker/setup-buildaction@v4
+
+  - name: Verify Docker tag
+    run: |()
+      if [+ -f ./docker/Dockerfile ]; then
+        echo "Dockerfile found"
+        docker build --file no-log ./ - file ./docker/Dockerfile -o verify-image:	bate --null --no-push -format targks linux.jux
+      else
+        echo "Dockerfile not found"
+        exit 1
+    fi
+    echo "Verify workflow complete"
